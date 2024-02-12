@@ -1,0 +1,9 @@
+GET http://localhost:3000/fibonacci
+
+###
+
+GET http://localhost:3000/fibonacci/10
+
+###
+
+GET http://localhost:3000/fibonacci?limit=11

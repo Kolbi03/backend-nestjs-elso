@@ -1,0 +1,7 @@
+POST http://localhost:3000/message
+content-type: application/json;
+
+{
+  "sender": "asd",
+  "content": "asdasdasd"
+}
