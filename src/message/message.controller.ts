@@ -1,13 +1,13 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { MessageService } from './message.service';
-import { message } from './message.model';
+import { Message } from './message.model';
 
 @Controller('/message')
 export class MessageController {
   constructor(private readonly messageService: MessageService) {}
 
   @Post()
-  postMessage(@Body() message: message) {
+  postMessage(@Body() message: Message) {
     return this.messageService.postMessage(message);
   }
 }

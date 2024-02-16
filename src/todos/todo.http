@@ -1,0 +1,27 @@
+GET http://localhost:3000/todos/3
+
+###
+
+PUT http://localhost:3000/todos/4
+Content-Type: application/json
+
+{
+  "text": "aludni"
+}
+
+###
+
+DELETE http://localhost:3000/todos/4
+
+###
+
+POST http://localhost:3000/todos
+Content-Type: application/json
+
+{
+  "text": ""
+}
+
+###
+
+GET http://localhost:3000/todos?limit=2&offset=1

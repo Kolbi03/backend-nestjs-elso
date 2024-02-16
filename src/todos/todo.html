@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<h1>
+  Ez itt a todo html
+</h1>
+<div id="list"></div>
+<script>
+  const list = document.getElementById('list')
+
+  async function fetchTodos() {
+
+    const res = await fetch('/todos')
+    const json = await res.json()
+
+    console.log(json)
+
+    const ul = document.createElement("ul");
+    json.filter (e => {
+      const li = document.createElement("li");
+      li.textContent = e.text;
+      ul.appendChild(li)
+    });
+    list.appendChild(ul)
+  }
+</script>
+</html>

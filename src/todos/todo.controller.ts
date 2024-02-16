@@ -1,25 +1,28 @@
-import { BadRequestException, Body, Controller, Get, NotFoundException, Param, Post, Query, } from '@nestjs/common';
-import { CreateTodoInput, TodoService } from "./todo.service";
-import { Todo } from './todo.model';
-import { dto } from "./todo.dto";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  Post,
+  Put,
+  Query,
+  Res,
+} from '@nestjs/common';
+import { CreateTodoInput, TodoInput, TodoService } from "./todo.service";
+import type { Response } from 'express';
+import { GetTodosInput } from "./todo.service";
 
 @Controller()
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
-  @Get('/todos')
-  getTodos(
-    @Query('limit') limit: string | undefined | string[],
-    @Query('offset') offset: string | undefined | string[],
-  ) {
-    if (Array.isArray(limit) || Array.isArray(offset)) {
-      throw new BadRequestException();
-    } else {
-      const limitNum = undefined ? Infinity : parseInt(limit);
-      const offsetNum = undefined ? Infinity : parseInt(offset);
 
-      return this.todoService.getTodos(limitNum, offsetNum + limitNum);
-    }
+  @Get('/todos')
+  getTodos(@Query() input: GetTodosInput) {
+    return this.todoService.getTodo(input);
   }
+
 
   @Get('/todos/:id')
   getTodo(@Param('id') id: string) {
@@ -31,7 +34,31 @@ export class TodoController {
   }
 
   @Post('/todos')
-  postTodo(@Body() todo: CreateTodoInput) {
+  postTodo(@Body() todo: TodoInput) {
     this.todoService.postTodo(todo);
+  }
+
+  @Get('/todohtml')
+  getPage(@Res() res: Response) {
+    res.sendFile('todo.html', { root: 'src/todos' });
+  }
+
+  @Get('/alltodos')
+  getAllTodos() {
+    this.todoService.getAllTodos();
+  }
+
+  @Put('/todos/:id')
+  PutTodo(@Param('id') id: string, @Body() body: CreateTodoInput) {
+    const todo = this.todoService.getTodo(id);
+    if (!todo) {
+      throw new NotFoundException();
+    }
+    return (todo.text = body.text);
+  }
+
+  @Delete('/todos/:id')
+  deleteTodo(@Param('id') id: string) {
+    this.todoService.deleteTodos(id);
   }
 }

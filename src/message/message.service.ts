@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import fs from 'fs/promises';
-import { message } from './message.model';
+import { Message } from './message.model';
 
 @Injectable()
 export class MessageService {
-  async postMessage(message: message) {
-    const newMessage: message = {
+  async postMessage(message: Message) {
+    const newMessage: Message = {
       ...message,
     };
 
