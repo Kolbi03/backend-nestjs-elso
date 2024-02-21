@@ -2,7 +2,7 @@ GET http://localhost:3000/todos/3
 
 ###
 
-PUT http://localhost:3000/todos/4
+PUT http://localhost:3000/todos/3
 Content-Type: application/json
 
 {

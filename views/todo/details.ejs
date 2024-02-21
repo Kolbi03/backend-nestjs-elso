@@ -1,0 +1,16 @@
+<html>
+<body>
+<div>
+    <form method="post" action="/todo-html/<%=todo.id%>">
+        <input type="text" name="text" value="<%=todo.text%>">
+        <button>Módosít</button>
+    </form>
+
+    <form action="/todo-html/delete/<%=todo.id%>" method="post">
+        <button style="color: red">Törlés</button>
+    </form>
+    <!--<h1>Teendő: <%= todo.text %></h1>-->
+
+</div>
+</body>
+</html>

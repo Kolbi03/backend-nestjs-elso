@@ -1,0 +1,21 @@
+<html>
+<body>
+<div>
+    <%= message %>
+    <% todos.forEach(item => { %>
+                <li> <a href="/todo-html/<%= item.id %>"> <%= item.text %> </a> </li>
+    <% }) %>
+</div>
+<br>
+<div>
+    <form method="post" action="/todo-html">
+        <label> Todo neve:
+            <input type="text" name="text"/>
+        </label>
+        <br>
+        <button type="submit">Létrehozás</button>
+
+    </form>
+</div>
+</body>
+</html>

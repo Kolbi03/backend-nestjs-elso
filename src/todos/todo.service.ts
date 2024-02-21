@@ -1,11 +1,12 @@
 import {
   BadRequestException,
   Injectable,
-  NotFoundException, Query
-} from "@nestjs/common";
+  NotFoundException,
+  Query,
+} from '@nestjs/common';
 import { Todo } from './todo.model';
-import { IsInt, IsNotEmpty, IsOptional, IsPositive } from "class-validator";
-import { Type } from "class-transformer";
+import { IsInt, IsNotEmpty, IsOptional, IsPositive } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export type CreateTodoInput = Omit<Todo, 'id'>;
 
@@ -23,7 +24,7 @@ export class GetTodosInput {
 
   @IsInt()
   @IsPositive()
-  @Type(()=> Number)
+  @Type(() => Number)
   @IsOptional()
   offset?: number;
 }
@@ -45,10 +46,8 @@ export class TodoService {
     },
   ];
 
-
-
-  getTodos({ limit, offset}: GetTodosInput) {
-        return this.todos.slice(limit, offset + limit);
+  getTodos({ limit = Infinity, offset = 0 }: GetTodosInput) {
+    return this.todos.slice(offset, offset + limit);
   }
 
   getAllTodos() {
@@ -66,17 +65,20 @@ export class TodoService {
     this.todos.push(todo);
   }
 
-  public deleteTodos(id: string) {
+  public putTodo(id: string, input: CreateTodoInput) {
     const todo = this.getTodo(id);
-    if (todo === undefined) {
+    if (!todo) {
       throw new NotFoundException();
-    } else {
-      const todoId = parseInt(todo.id);
-      if (todoId === undefined || isNaN(todoId)) {
-        throw new BadRequestException();
-      } else {
-        delete this.todos[todoId];
-      }
     }
+    Object.assign(todo, input);
+    return todo;
+  }
+
+  public deleteTodos(id: string) {
+    const index = this.todos.findIndex((todo) => todo.id === id);
+    if (index === -1) {
+      return;
+    }
+    this.todos.splice(index, 1);
   }
 }

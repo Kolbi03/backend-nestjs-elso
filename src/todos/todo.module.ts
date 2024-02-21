@@ -2,10 +2,11 @@ import { Module, ValidationPipe } from '@nestjs/common';
 import { TodoController } from './todo.controller';
 import { TodoService } from './todo.service';
 import { APP_PIPE } from '@nestjs/core';
+import { TodoHtmlContoller } from './todo.html.contorller';
 
 @Module({
   imports: [],
-  controllers: [TodoController],
+  controllers: [TodoController, TodoHtmlContoller],
   providers: [
     TodoService,
     {
