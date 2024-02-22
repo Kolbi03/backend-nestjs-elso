@@ -2,7 +2,6 @@ import {
   BadRequestException,
   Body,
   Controller,
-  Delete,
   Get,
   Param,
   Post,
@@ -10,7 +9,7 @@ import {
   Res,
 } from '@nestjs/common';
 import { CreateTodoInput, TodoInput, TodoService } from './todo.service';
-import { Response, response } from 'express';
+import { Response } from 'express';
 
 @Controller('todo-html')
 export class TodoHtmlContoller {
